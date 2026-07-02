@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#1f8a84" />
+  <meta name="description" content="Ein Geld-Planer in Einfacher Sprache. Daten bleiben auf dem Gerät und können exportiert werden." />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <link rel="stylesheet" href="style.css" />
+  <title>Mein Geld im Blick</title>
+</head>
+<body>
+  <header class="app-header">
+    <div>
+      <p class="kicker">Geld-Planer in Einfacher Sprache</p>
+      <h1>Mein Geld im Blick</h1>
+      <p class="lead">Hier können Sie eintragen: Geld bekommen. Geld ausgegeben. Was bleibt übrig?</p>
+    </div>
+  </header>
+
+  <main class="container" id="main-content">
+    <section class="card privacy-note" aria-labelledby="privacy-title">
+      <h2 id="privacy-title">Wichtig</h2>
+      <p>Ihre Daten bleiben auf diesem Gerät. Es gibt kein Konto. Es gibt keine Cloud.</p>
+      <p class="small">Tipp: Speichern Sie Ihre Daten regelmäßig mit „Export“.</p>
+    </section>
+
+    <section class="card month-card" aria-labelledby="month-title">
+      <div class="section-head">
+        <div>
+          <h2 id="month-title">Monat ansehen</h2>
+          <p class="big-month" id="current-month-label">Juli 2026</p>
+        </div>
+        <label class="month-picker" for="month-filter">
+          <span>Anderen Monat wählen</span>
+          <input id="month-filter" type="month" />
+        </label>
+      </div>
+    </section>
+
+    <section class="summary-grid" aria-label="Monatsübersicht">
+      <article class="summary-card income">
+        <span>Einnahmen</span>
+        <strong id="total-income">0,00 €</strong>
+      </article>
+      <article class="summary-card expense">
+        <span>Ausgaben</span>
+        <strong id="total-expense">0,00 €</strong>
+      </article>
+      <article class="summary-card balance">
+        <span>Das bleibt übrig</span>
+        <strong id="balance">0,00 €</strong>
+      </article>
+    </section>
+
+    <section class="card" aria-labelledby="chart-title">
+      <h2 id="chart-title">Einfache Übersicht</h2>
+      <p class="small">Die Balken zeigen: Was kommt rein? Was geht raus?</p>
+      <div class="bar-chart" aria-label="Grafische Übersicht über Einnahmen und Ausgaben">
+        <div class="bar-row">
+          <div class="bar-label">Einnahmen</div>
+          <div class="bar-track"><div id="income-bar" class="bar income-bar"></div></div>
+          <div id="income-bar-value" class="bar-value">0,00 €</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">Ausgaben</div>
+          <div class="bar-track"><div id="expense-bar" class="bar expense-bar"></div></div>
+          <div id="expense-bar-value" class="bar-value">0,00 €</div>
+        </div>
+      </div>
+      <div class="category-box">
+        <h3>Wofür wurde Geld ausgegeben?</h3>
+        <div id="category-overview" class="category-overview"></div>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="entry-title">
+      <h2 id="entry-title">Neuen Eintrag machen</h2>
+      <form id="entry-form" autocomplete="off">
+        <fieldset class="type-toggle">
+          <legend>Was möchten Sie eintragen?</legend>
+          <label><input type="radio" name="type" value="income" checked /> Geld bekommen</label>
+          <label><input type="radio" name="type" value="expense" /> Geld ausgegeben</label>
+        </fieldset>
+
+        <label for="amount">Wie viel Geld?</label>
+        <div class="money-input">
+          <input id="amount" name="amount" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Zum Beispiel 25" required />
+          <span>€</span>
+        </div>
+
+        <label for="category">Wofür?</label>
+        <select id="category" name="category" required>
+          <option value="Lohn / Gehalt">Lohn / Gehalt</option>
+          <option value="Bürgergeld / Leistung">Bürgergeld / Leistung</option>
+          <option value="Rente">Rente</option>
+          <option value="Geschenk">Geschenk</option>
+          <option value="Lebensmittel">Lebensmittel</option>
+          <option value="Miete">Miete</option>
+          <option value="Strom / Energie">Strom / Energie</option>
+          <option value="Handy / Internet">Handy / Internet</option>
+          <option value="Bus / Bahn / Auto">Bus / Bahn / Auto</option>
+          <option value="Gesundheit">Gesundheit</option>
+          <option value="Freizeit">Freizeit</option>
+          <option value="Schule / Kurs">Schule / Kurs</option>
+          <option value="Anderes">Anderes</option>
+        </select>
+
+        <label for="note">Notiz</label>
+        <input id="note" name="note" type="text" maxlength="80" placeholder="Zum Beispiel: Einkauf" />
+
+        <label for="date">Datum</label>
+        <input id="date" name="date" type="date" required />
+
+        <button class="primary" type="submit">Eintrag speichern</button>
+      </form>
+    </section>
+
+    <section class="card" aria-labelledby="list-title">
+      <div class="section-head">
+        <h2 id="list-title">Meine Einträge</h2>
+        <button class="secondary" id="clear-month" type="button">Monat löschen</button>
+      </div>
+      <div id="empty-state" class="empty-state">Noch keine Einträge für diesen Monat.</div>
+      <ul id="entry-list" class="entry-list"></ul>
+    </section>
+
+    <section class="card" aria-labelledby="export-title">
+      <h2 id="export-title">Export</h2>
+      <p>Sie können Ihre Einträge als Datei speichern.</p>
+      <div class="button-row">
+        <button class="secondary" id="export-csv" type="button">CSV exportieren</button>
+        <button class="secondary" id="export-pdf" type="button">PDF-Übersicht erstellen</button>
+        <button class="secondary" id="export-json" type="button">Sicherung exportieren</button>
+      </div>
+      <details>
+        <summary>Sicherung wieder einlesen</summary>
+        <p class="small">Wählen Sie eine Sicherungs-Datei aus. Achtung: Die Daten auf diesem Gerät werden ersetzt.</p>
+        <input id="import-json" type="file" accept="application/json,.json" />
+      </details>
+    </section>
+
+    <section class="card help" aria-labelledby="help-title">
+      <h2 id="help-title">Hilfe</h2>
+      <details>
+        <summary>Wie kommt die App auf mein Handy?</summary>
+        <p><strong>iPhone:</strong> Link in Safari öffnen. Auf Teilen tippen. Dann „Zum Home-Bildschirm“ wählen.</p>
+        <p><strong>Android:</strong> Link in Chrome öffnen. Menü öffnen. Dann „App installieren“ oder „Zum Startbildschirm hinzufügen“ wählen.</p>
+      </details>
+      <details>
+        <summary>Wo sind meine Daten?</summary>
+        <p>Die Daten werden nur im Browser auf diesem Gerät gespeichert. Niemand kann sie auf einem Server sehen.</p>
+      </details>
+      <details>
+        <summary>Was bedeutet Export?</summary>
+        <p>Export heißt: Sie speichern eine Datei mit Ihren Einträgen. Diese Datei können Sie behalten oder ausdrucken.</p>
+      </details>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <p>Mein Geld im Blick</p>
+    <p class="credit">© Elisabeth Vanderheiden</p>
+  </footer>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
