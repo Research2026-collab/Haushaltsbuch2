@@ -6,13 +6,13 @@ Copyright © 2026 Elisabeth Vanderheiden.
 
 ## Deutsch
 
-**Mein Geld im Blick – Ein Geld-Planer in Einfacher Sprache**
+**Mein Geld im Blick – Ein Ein- und Ausgaben-Planer in Einfacher Sprache**
 
 Eine interaktive Anwendung zur Erfassung von Einnahmen und Ausgaben in Einfacher Sprache, die Menschen mit Grundbildungsbedarf, kognitiven Beeinträchtigungen oder begrenzten Finanzkenntnissen dabei helfen soll, ihr Geld selbstständig im Blick zu behalten.
 
 ### Übersicht
 
-Mein Geld im Blick unterstützt eine selbstbestimmte Finanzbuchführung durch eine reduzierte, barrierefreie Benutzeroberfläche mit getrennten Kategorien für Einnahmen und Ausgaben. Die Anwendung läuft vollständig im Browser und speichert alle Einträge lokal auf dem eigenen Gerät des Nutzers, sodass keine persönlichen Finanzdaten an einen Server übertragen werden.
+Mein Geld im Blick unterstützt eine selbstbestimmte Finanzbuchführung durch eine reduzierte, barrierefreie Benutzeroberfläche mit getrennten Kategorien für Einnahmen und Ausgaben. Die Anwendung läuft vollständig im Browser und speichert alle Einträge lokal auf dem eigenen Gerät der Nutzerin/des Nutzers, sodass keine persönlichen Finanzdaten an einen Server übertragen werden.
 
 Die Nutzer:innen wählen zunächst, ob sie „Geld bekommen" oder „Geld ausgegeben" eintragen möchten. Je nach Auswahl zeigt die Anwendung passende Kategorien an, geben einen Betrag, eine Kategorie und ein Datum ein und können optional eine Notiz hinzufügen. Die Anwendung bietet dann eine monatliche Übersicht über Einnahmen, Ausgaben und den Restbetrag, eine einfache Balkenübersicht von Einnahmen und Ausgaben, eine Aufschlüsselung der Ausgaben des gewählten Monats nach Kategorien, eine chronologische Liste aller Einträge sowie den Export aller Einträge als CSV-Tabelle, als druckbares PDF oder als JSON-Sicherungsdatei, die sich auf einem anderen Gerät wieder einlesen lässt.
 
@@ -30,7 +30,7 @@ Menschen mit Grundbildungsbedarf, kognitiven Beeinträchtigungen oder geistigen 
 
 ### Wichtiger Hinweis
 
-Die Anwendung ist ein Bildungs- und Selbstorganisationswerkzeug. Sie ersetzt keine Finanzberatung, Schuldnerberatung oder Sozialberatung. Bei konkreten finanziellen Schwierigkeiten oder Verschuldung sollte eine entsprechende Beratungsstelle aufgesucht werden.
+Die Anwendung ist ein Bildungs- und Selbstorganisationswerkzeug. Sie ersetzt keine Finanzberatung, Schuldner:innenberatung oder Sozialberatung. Bei konkreten finanziellen Schwierigkeiten oder Verschuldung sollte eine entsprechende Beratungsstelle aufgesucht werden.
 
 ### Technische Hinweise
 
