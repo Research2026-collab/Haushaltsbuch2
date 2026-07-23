@@ -33,10 +33,15 @@
           <h2 id="month-title">Monat ansehen</h2>
           <p class="big-month" id="current-month-label">Juli 2026</p>
         </div>
-        <label class="month-picker" for="month-filter">
+        <div class="month-picker">
           <span>Anderen Monat wählen</span>
-          <input id="month-filter" type="month" />
-        </label>
+          <div class="month-year-select">
+            <label class="sr-only" for="month-select">Monat wählen</label>
+            <select id="month-select"></select>
+            <label class="sr-only" for="year-select">Jahr wählen</label>
+            <select id="year-select"></select>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -92,21 +97,7 @@
         </div>
 
         <label for="category">Wofür?</label>
-        <select id="category" name="category" required>
-          <option value="Lohn / Gehalt">Lohn / Gehalt</option>
-          <option value="Bürgergeld / Leistung">Bürgergeld / Leistung</option>
-          <option value="Rente">Rente</option>
-          <option value="Geschenk">Geschenk</option>
-          <option value="Lebensmittel">Lebensmittel</option>
-          <option value="Miete">Miete</option>
-          <option value="Strom / Energie">Strom / Energie</option>
-          <option value="Handy / Internet">Handy / Internet</option>
-          <option value="Bus / Bahn / Auto">Bus / Bahn / Auto</option>
-          <option value="Gesundheit">Gesundheit</option>
-          <option value="Freizeit">Freizeit</option>
-          <option value="Schule / Kurs">Schule / Kurs</option>
-          <option value="Anderes">Anderes</option>
-        </select>
+        <select id="category" name="category" required></select>
 
         <label for="note">Notiz</label>
         <input id="note" name="note" type="text" maxlength="80" placeholder="Zum Beispiel: Einkauf" />

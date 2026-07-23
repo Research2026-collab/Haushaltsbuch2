@@ -1,11 +1,41 @@
+const INCOME_CATEGORIES = [
+  'Lohn / Gehalt',
+  'Werkstatt-Entgelt',
+  'Bürgergeld / Leistung',
+  'Rente',
+  'Geschenk',
+  'Anderes'
+];
+
+const EXPENSE_CATEGORIES = [
+  'Lebensmittel',
+  'Miete',
+  'Strom / Energie',
+  'Handy / Internet',
+  'Bus / Bahn / Auto',
+  'Gesundheit',
+  'Freizeit',
+  'Schule / Kurs',
+  'Geschenk',
+  'Anderes'
+];
+
+const MONTH_NAMES = [
+  'Januar', 'Februar', 'März', 'April', 'Mai', 'Juni',
+  'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'
+];
+
 const STORAGE_KEY = 'geld-planer-v2';
 const OLD_STORAGE_KEY = 'geld-planer-v1';
 const form = document.querySelector('#entry-form');
 const list = document.querySelector('#entry-list');
 const emptyState = document.querySelector('#empty-state');
-const monthFilter = document.querySelector('#month-filter');
+const monthSelect = document.querySelector('#month-select');
+const yearSelect = document.querySelector('#year-select');
 const monthLabel = document.querySelector('#current-month-label');
 const dateInput = document.querySelector('#date');
+const categorySelect = document.querySelector('#category');
+const typeRadios = document.querySelectorAll('input[name="type"]');
 const totalIncomeEl = document.querySelector('#total-income');
 const totalExpenseEl = document.querySelector('#total-expense');
 const balanceEl = document.querySelector('#balance');
@@ -31,7 +61,43 @@ function currentMonthISO() {
 }
 
 dateInput.value = todayISO();
-monthFilter.value = currentMonthISO();
+
+function getSelectedMonthValue() {
+  return `${yearSelect.value}-${monthSelect.value}`;
+}
+
+function populateMonthSelect() {
+  monthSelect.innerHTML = MONTH_NAMES
+    .map((name, index) => `<option value="${String(index + 1).padStart(2, '0')}">${name}</option>`)
+    .join('');
+}
+
+function populateYearSelect() {
+  const currentYear = Number(currentMonthISO().slice(0, 4));
+  const entryYears = entries.map(entry => Number(entry.date.slice(0, 4)));
+  const earliestYear = Math.min(currentYear, ...(entryYears.length ? entryYears : [currentYear]));
+  const years = [];
+  for (let year = currentYear + 1; year >= earliestYear - 1; year--) years.push(year);
+  yearSelect.innerHTML = years.map(year => `<option value="${year}">${year}</option>`).join('');
+}
+
+populateMonthSelect();
+populateYearSelect();
+monthSelect.value = currentMonthISO().slice(5, 7);
+yearSelect.value = currentMonthISO().slice(0, 4);
+
+function renderCategoryOptions(type) {
+  const categoryList = type === 'income' ? INCOME_CATEGORIES : EXPENSE_CATEGORIES;
+  const previous = categorySelect.value;
+  categorySelect.innerHTML = categoryList.map(name => `<option value="${name}">${name}</option>`).join('');
+  if (categoryList.includes(previous)) categorySelect.value = previous;
+}
+
+renderCategoryOptions(document.querySelector('input[name="type"]:checked').value);
+
+typeRadios.forEach(radio => {
+  radio.addEventListener('change', () => renderCategoryOptions(radio.value));
+});
 
 function loadEntries() {
   try {
@@ -69,7 +135,7 @@ function formatDateShort(dateString) {
 
 function getVisibleEntries() {
   return entries
-    .filter(entry => entry.date.startsWith(monthFilter.value))
+    .filter(entry => entry.date.startsWith(getSelectedMonthValue()))
     .sort((a, b) => b.date.localeCompare(a.date) || b.createdAt.localeCompare(a.createdAt));
 }
 
@@ -91,7 +157,7 @@ function render() {
   const visible = getVisibleEntries();
   const { totalIncome, totalExpense, balance } = getTotals(visible);
 
-  monthLabel.textContent = monthLong(monthFilter.value);
+  monthLabel.textContent = monthLong(getSelectedMonthValue());
   totalIncomeEl.textContent = euro(totalIncome);
   totalExpenseEl.textContent = euro(totalExpense);
   balanceEl.textContent = euro(balance);
@@ -191,6 +257,7 @@ form.addEventListener('submit', event => {
   form.reset();
   dateInput.value = todayISO();
   document.querySelector('input[name="type"][value="income"]').checked = true;
+  renderCategoryOptions('income');
   render();
   showToast('Eintrag gespeichert.');
 });
@@ -208,7 +275,8 @@ list.addEventListener('click', event => {
   }
 });
 
-monthFilter.addEventListener('change', render);
+monthSelect.addEventListener('change', render);
+yearSelect.addEventListener('change', render);
 
 clearMonthButton.addEventListener('click', () => {
   const visible = getVisibleEntries();
@@ -239,7 +307,7 @@ exportCsvButton.addEventListener('click', () => {
     ])
   ];
   const csv = rows.map(row => row.map(csvCell).join(';')).join('\n');
-  downloadFile(`geld-planer-${monthFilter.value}.csv`, '\ufeff' + csv, 'text/csv;charset=utf-8');
+  downloadFile(`geld-planer-${getSelectedMonthValue()}.csv`, '\ufeff' + csv, 'text/csv;charset=utf-8');
 });
 
 exportPdfButton.addEventListener('click', () => {
@@ -266,6 +334,11 @@ importJsonInput.addEventListener('change', async event => {
     if (!confirm('Sicherung einlesen? Die Daten auf diesem Gerät werden ersetzt.')) return;
     entries = data.entries;
     saveEntries();
+    const keepMonth = monthSelect.value;
+    const keepYear = yearSelect.value;
+    populateYearSelect();
+    monthSelect.value = keepMonth;
+    yearSelect.value = yearSelect.querySelector(`option[value="${keepYear}"]`) ? keepYear : currentMonthISO().slice(0, 4);
     render();
     showToast('Sicherung eingelesen.');
   } catch {
@@ -322,7 +395,7 @@ function openPrintReport() {
     <html lang="de">
     <head>
       <meta charset="utf-8">
-      <title>Mein Geld im Blick – ${monthLong(monthFilter.value)}</title>
+      <title>Mein Geld im Blick – ${monthLong(getSelectedMonthValue())}</title>
       <style>
         body { font-family: Arial, sans-serif; color: #18365d; margin: 2rem; line-height: 1.4; }
         h1 { margin-bottom: .2rem; }
@@ -345,7 +418,7 @@ function openPrintReport() {
     </head>
     <body>
       <h1>Mein Geld im Blick</h1>
-      <p class="month">${monthLong(monthFilter.value)}</p>
+      <p class="month">${monthLong(getSelectedMonthValue())}</p>
       <div class="cards">
         <div class="card">Einnahmen<strong>${euro(totalIncome)}</strong></div>
         <div class="card">Ausgaben<strong>${euro(totalExpense)}</strong></div>
