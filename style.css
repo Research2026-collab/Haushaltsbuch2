@@ -184,6 +184,7 @@ summary { font-weight: 950; cursor: pointer; padding: .6rem 0; }
 }
 .app-footer p { margin: .2rem 0; }
 .app-footer .credit { color: var(--primary); font-weight: 900; }
+.app-footer .advice-note { margin: .9rem auto; max-width: 32rem; line-height: 1.5; }
 .toast {
   position: fixed; left: 50%; bottom: 1rem; transform: translateX(-50%);
   background: var(--primary-dark); color: white; padding: .8rem 1rem;
