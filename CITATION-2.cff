@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "Bitte zitieren Sie diese Software wie folgt / Please cite this software as below."
+type: software
+title: "Mein Geld im Blick – Ein Geld-Planer in Einfacher Sprache"
+authors:
+  - family-names: Vanderheiden
+    given-names: Elisabeth
+version: 1.0.0
+date-released: 2026-07-23
+doi: 10.5281/zenodo.XXXXXXX
+url: "https://research2026-collab.github.io/Haushaltsbuch2/"
+repository-code: "https://github.com/research2026-collab/Haushaltsbuch2"
+license: CC-BY-NC-4.0
+keywords:
+  - Grundbildung
+  - Einfache Sprache
+  - Finanzbildung
+  - Budgetplanung
+  - Barrierefreiheit
+  - Behinderung
+  - Legasthenie
+  - Inklusion
+  - digitale Teilhabe
+  - Selbstbestimmtes Leben
