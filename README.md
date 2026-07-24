@@ -47,6 +47,7 @@ Entwickelt im Rahmen des Projekts „Inklusion – ToolCheck", gefördert vom Mi
 ### Autorin
 
 Elisabeth Vanderheiden
+Für die Erstellung des  Quelltextes dieser Anwendung wurde Claude Sonnet 5, ein KI-Modell von Anthropic, genutzt. Die inhaltliche Konzeption, die Entwicklung der Anwendungsidee, die Festlegung der Anforderungen sowie sämtliche fachlichen und gestalterischen Entscheidungen stammen von Elisabeth Vanderheiden. 
 
 ### Zitierweise
 
@@ -113,6 +114,7 @@ Developed within the project "Inklusion – ToolCheck", funded by the Ministry o
 ### Author
 
 Elisabeth Vanderheiden
+Claude Sonnet 5, an AI model developed by Anthropic, was used to generate the source code for this application. The conceptual design, the development of the application concept, the definition of the requirements, and all technical and design decisions were made by Elisabeth Vanderheiden.
 
 ### Citation
 
